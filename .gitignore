@@ -1,0 +1,6 @@
+# IGNORE GENERATED BINARIES
+main
+gophonologue
+
+# IGNORE OSX FINDER FILES
+**.DS_Store
