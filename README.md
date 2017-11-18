@@ -1,4 +1,4 @@
-# gophonologue
+# gophonologue (goph-on-oh-log)
 I'm not very good with puns obviously.
 
 ## Deployment
