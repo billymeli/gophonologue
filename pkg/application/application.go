@@ -12,6 +12,12 @@ type Application struct {
 	Port         int
 }
 
+type Message struct {
+	Timestamp int
+	Username  string
+	Message   string
+}
+
 var server http.Server
 
 func New(dir string, root string, port int) *Application {

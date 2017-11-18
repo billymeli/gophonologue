@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/boltdb/bolt"
+	"github.com/george-e-shaw-iv/gophonologue/pkg/message"
 )
 
 // Database constants
@@ -74,6 +75,21 @@ func (ds *Datastore) Get(bucket string, key []byte, result interface{}) error {
 		}
 
 		return json.Unmarshal(dsValue, result)
+	})
+}
+
+func (ds *Datastore) GetMessages(bucket string, messages map[string]message.Message) error {
+	return ds.handle.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(bucket))
+
+		var holder message.Message
+
+		b.ForEach(func(k, v []byte) error {
+			json.Unmarshal(v, &holder)
+			messages[string(k)] = holder
+			return nil
+		})
+		return nil
 	})
 }
 

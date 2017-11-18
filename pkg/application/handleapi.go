@@ -16,7 +16,10 @@ func (app *Application) handleAPI(res http.ResponseWriter, req *http.Request) bo
 
 	switch suspectApi {
 	case "/messenger/post":
-		messenger.Post(res, req)
+		messenger.Post(res, req, app.Directory)
+		return true
+	case "/messenger/get":
+		messenger.Get(res, req, app.Directory)
 		return true
 	default:
 		return false

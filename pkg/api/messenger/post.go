@@ -4,10 +4,14 @@ import (
 	"encoding/json"
 	"html"
 	"net/http"
+	"strconv"
 	"time"
+
+	"github.com/george-e-shaw-iv/gophonologue/pkg/database"
+	"github.com/george-e-shaw-iv/gophonologue/pkg/message"
 )
 
-func Post(res http.ResponseWriter, req *http.Request) {
+func Post(res http.ResponseWriter, req *http.Request, dir string) {
 	if req.Method != "POST" {
 		http.Error(res, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
@@ -24,19 +28,28 @@ func Post(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var responseData struct {
-		Username         string `json:"username"`
-		SanitizedMessage string `json:"sanitized_message"`
-		Timestamp        int    `json:"timestamp"`
+	var responseData message.Message
+	responseData.Username = html.EscapeString(requestData.Username)
+	responseData.Message = html.EscapeString(requestData.Message)
+
+	timestamp := strconv.Itoa(int(time.Now().Unix()))
+	response := make(map[string]message.Message, 1)
+	response[timestamp] = responseData
+
+	ds, err := database.Open(dir + database.DB_MAIN)
+	if err != nil {
+		http.Error(res, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer ds.Close()
+
+	err = ds.Put(database.BUCKET_MESSAGES, []byte(timestamp), responseData)
+	if err != nil {
+		http.Error(res, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
-	responseData.Username = html.EscapeString(requestData.Username)
-	responseData.SanitizedMessage = html.EscapeString(requestData.Message)
-	responseData.Timestamp = int(time.Now().Unix())
-
-	/* TODO: Latest 50 messages stored in database logic here */
-
-	jsonData, err := json.Marshal(responseData)
+	jsonData, err := json.Marshal(response)
 	if err != nil {
 		http.Error(res, err.Error(), http.StatusInternalServerError)
 		return
