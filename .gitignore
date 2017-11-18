@@ -2,5 +2,8 @@
 main
 gophonologue
 
+# IGNORE BOLTDB FILES
+**.db
+
 # IGNORE OSX FINDER FILES
 **.DS_Store
