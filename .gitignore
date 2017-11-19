@@ -7,3 +7,5 @@ gophonologue
 
 # IGNORE OSX FINDER FILES
 **.DS_Store
+
+**.exe
