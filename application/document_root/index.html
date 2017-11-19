@@ -23,13 +23,29 @@
           <li class="nav-item">
             <a class="nav-link" href="index.html">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="help.html">Help</a>
-          </li>
         </ul>
       </div>
     </nav>
 
+   <div class="modal fade new-user-modal" tabindex="-1" role="dialog" aria-labelledby="new-user-modal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Welcome!</h5>
+            </div>
+            <div class="modal-body">
+               <form class="_js_new-user-form">
+                  <div class="form-group">
+                     <label for="screenNameInput">Screen name</label>
+                     <input type="text" name="screen-name" class="form-control" id="screenNameInput" aria-describedby="nameHelp" placeholder="Screen name">
+                     <small id="nameHelp" class="form-text text-muted">The name others will see you type messages as.</small>
+                  </div>
+                  <button class="btn btn-success" type="submit">Get Chatting!</button>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
 
     <div class="container mt-5">
       <div class="row">
@@ -37,23 +53,18 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">gophonologue</h4>
-              <h6 class="card-subtitle mb-4 text-muted">A lightweight, userless instant messanger developed in go.</h6
+              <h6 class="card-subtitle mb-4 text-muted">A lightweight, userless instant messanger developed in go.</h6>
 
-                <div class="col-sm-3 col-sm-offset-4 frame">
-                <ul id="messageBox"></ul>
-              </div>
+              <ul id="messageBox" class="w-100"></ul>
 
               <form class="_js_form-post" method="post" action="api/messenger/post">
                 <div class="input-group w-100">
-                  <input type="text" class="form-control" placeholder="Enter message..." aria-label="Enter message...">
+                  <input name="message" type="text" class="form-control" placeholder="Enter message..." aria-label="Enter message...">
                   <span class="input-group-btn">
                     <button class="btn btn-outline-primary" type="submit">Send</button>
                   </span>
                 </div>
               </form>
-            </div>
-            <div class="card-footer text-muted">
-              <a href="help.html">Help</a>
             </div>
           </div>
         </div>
@@ -65,8 +76,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="js/post.js"></script>
+    <script type="text/javascript" src="js/newuser.js"></script>
     <script type="text/javascript" src="js/addMessage.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
     <!-- KEEP AT BOTTOM OF BODY -->
   </body>
 </html>
