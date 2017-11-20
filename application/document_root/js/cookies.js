@@ -20,19 +20,3 @@ function setCookie(cname, cvalue, time) {
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + "," + expires + ",path=/";
 }
-
-jQuery('._js_new-user-form').on('submit', function(e){
-   e.preventDefault();
-
-   var newuser = jQuery(this).find('input[name="screen-name"]').val();
-   setCookie("username", newuser, 60*60*2);
-   jQuery('.new-user-modal').modal('hide');
-});
-
-var user = getCookie("username");
-if (user == "") {
-   jQuery('.new-user-modal').modal({
-      keyboard: false,
-      backdrop:'static'
-   });
-}

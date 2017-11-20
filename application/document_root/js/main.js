@@ -1,6 +1,22 @@
-/* On startup get all old messages in db */
-function refreshChat() {
+/* Ensure username cookie exists */
+var user = getCookie("username");
+if (user == "") {
+   jQuery('.new-user-modal').modal({
+      keyboard: false,
+      backdrop:'static'
+   });
+}
 
+jQuery('._js_new-user-form').on('submit', function(e){
+   e.preventDefault();
+
+   var newuser = jQuery(this).find('input[name="screen-name"]').val();
+   setCookie("username", newuser, 60*60*2);
+   jQuery('.new-user-modal').modal('hide');
+});
+/* Ensure username cookie exists */
+
+function refreshChat() {
    var xhr = new XMLHttpRequest();
    xhr.open('GET', 'api/messenger/get', true);
    xhr.send();
@@ -33,5 +49,7 @@ function refreshChat() {
    }
 }
 
+/* Start chat loop */
 refreshChat();
 var chatLoop = setInterval(refreshChat, 1500);
+/* Start chat loop */

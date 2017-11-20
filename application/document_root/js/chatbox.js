@@ -41,6 +41,3 @@ function insertChat(username, message, timestamp) {
 function resetChat() {
     $("#messageBox").empty();
 }
-
-// Clear chat on load
-resetChat();
